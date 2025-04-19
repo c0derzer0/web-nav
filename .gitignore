@@ -1,0 +1,9 @@
+*.pyc
+*.jsonl.gz
+*.json.gz
+*.jsonl.gz.part
+*.json.gz.part
+experimentation
+.env
+launch.json
+.vscode
