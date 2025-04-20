@@ -1,0 +1,6 @@
+langfuse
+python-dotenv
+transformers
+datasets
+unsloth
+wandb 
