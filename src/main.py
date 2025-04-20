@@ -19,11 +19,11 @@ def main():
     print("Starting training...")
     trainer = train_model(model, tokenizer, dataset)
     
-    # # Save and convert model
-    # print("Saving and converting model...")
-    # save_and_convert_model(model, tokenizer)
+    # Save and convert model
+    print("Saving and converting model...")
+    save_and_convert_model(model, tokenizer)
     
-    # print("Training completed successfully!")
+    print("Training completed successfully!")
 
 if __name__ == "__main__":
     main() 

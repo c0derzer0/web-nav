@@ -7,3 +7,10 @@ experimentation
 .env
 launch.json
 .vscode
+_unsloth*
+unsloth_compiled_cache
+wandb
+hiddenVariable
+outputs
+llama.cpp
+__pycache__

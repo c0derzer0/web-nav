@@ -50,10 +50,15 @@ def apply_template(examples, tokenizer):
                 else:
                     messages.append(msg)
 
-            formatted_chat = tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=False
-            )
-            formatted_chats.append(formatted_chat)
+            try:
+                formatted_chat = tokenizer.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=False
+                )
+                formatted_chats.append(formatted_chat)
+            except Exception as e:
+                print(f"Error formatting chat: {e}")
+                print(f"Messages: {messages}")
+                continue
         return {"text": formatted_chats}
     else:
         # Single example processing
@@ -68,7 +73,12 @@ def apply_template(examples, tokenizer):
             else:
                 messages.append(msg)
 
-        formatted_chat = tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=False
-        )
-        return {"text": formatted_chat} 
+        try:
+            formatted_chat = tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=False
+            )
+            return {"text": formatted_chat}
+        except Exception as e:
+            print(f"Error formatting chat: {e}")
+            print(f"Messages: {messages}")
+            return {"text": ""} 

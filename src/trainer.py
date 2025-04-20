@@ -1,6 +1,8 @@
 from transformers import TrainingArguments, DataCollatorForSeq2Seq
 from trl import SFTTrainer
 from config import training_config, model_config, hf_config
+from unsloth.chat_templates import train_on_responses_only
+
 
 def setup_training_args():
     """Setup training arguments using parameters from config."""
@@ -21,6 +23,10 @@ def setup_training_args():
         output_dir=training_config.output_dir,
         run_name=training_config.run_name,
         report_to=training_config.report_to,
+        save_strategy=training_config.save_strategy,
+        eval_strategy=training_config.eval_strategy,
+        save_steps=training_config.save_steps,
+        eval_steps=training_config.eval_steps,
     )
 
 def train_model(model, tokenizer, dataset):
@@ -40,6 +46,12 @@ def train_model(model, tokenizer, dataset):
         dataset_num_proc=training_config.dataset_num_proc,
         packing=training_config.packing,
         args=training_args,
+    )
+
+    trainer = train_on_responses_only(
+        trainer,
+        instruction_part = "<|start_header_id|>user<|end_header_id|>\n\n",
+        response_part = "<|start_header_id|>assistant<|end_header_id|>\n\n",
     )
     
     # Train the model

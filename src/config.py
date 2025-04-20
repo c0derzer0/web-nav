@@ -31,11 +31,11 @@ class LoRAConfig:
 @dataclass
 class TrainingConfig:
     # Training parameters from notebook
-    per_device_train_batch_size: int = 2
+    per_device_train_batch_size: int = 1
     gradient_accumulation_steps: int = 4
     warmup_steps: int = 5
-    num_train_epochs: int = 2
-    max_steps: int = 15
+    num_train_epochs: int = 10
+    max_steps: int = 2000
     learning_rate: float = 2e-4
     fp16: bool = not is_bfloat16_supported()  # Will be set based on hardware
     bf16: bool = is_bfloat16_supported()  # Will be set based on hardware
@@ -45,12 +45,12 @@ class TrainingConfig:
     lr_scheduler_type: str = "linear"
     seed: int = 3407
     output_dir: str = "outputs"
-    run_name: str = "web_navigation_run_1"
+    run_name: str = "web_navigation_run"
     report_to: str = "wandb"
     save_strategy: str = "steps"
     eval_strategy: str = "steps"
-    save_steps: int = 10
-    eval_steps: int = 10
+    save_steps: int = 100
+    eval_steps: int = 50
     
     # Additional required parameters
     dataset_num_proc: int = 2
@@ -58,7 +58,7 @@ class TrainingConfig:
 
 @dataclass
 class DatasetConfig:
-    train_file: str = os.path.join(PROJECT_ROOT, "datasets", "test_json_files", "chat_1.jsonl")
+    train_file: str = os.path.join(PROJECT_ROOT, "datasets", "web_navigation_data.jsonl")
     test_size: float = 0.1
     seed: int = 42
 
